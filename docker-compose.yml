@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+    volumes:
+      - ./backend/data:/app/data
+    depends_on:
+      - chroma
+
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chroma_db
+    ports:
+      - "8001:8000"
+    environment:
+      - IS_PERSISTENT=true
+      - PERSIST_DIRECTORY=/data/chroma
+    volumes:
+      - chroma_data:/data/chroma
+
+volumes:
+  chroma_data:

@@ -1,0 +1,14 @@
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+
+# Pytest cache
+.pytest_cache/
+
+# Data
+backend/data/
